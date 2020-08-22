@@ -17,6 +17,11 @@ import PermissionPage from './components/routing/PermissionPage'
 import PermissionRoute from './components/routing/PermissionRoute'
 import CreatePlayer from './components/player-form/CreatePlayer'
 import UpdatePlayer from './components/player-form/UpdatePlayer'
+import PlayerProfile from './components/player/PlayerProfile'
+import League from './components/league/League'
+import UpdateLeague from './components/league-form/UpdateLeague'
+import Team from './components/team/Team'
+import UpdateTeam from './components/team-form/UpdateTeam'
 
 function validateToken() {
     if (
@@ -36,10 +41,11 @@ if (validateToken()) {
 
 const App = () => {
     useEffect(() => {
-        store.dispatch(loadUser())
+        if (validateToken() && !isTokenExpired()) {
+            store.dispatch(loadUser())
+        }
         if (validateToken() && isTokenExpired()) {
             store.dispatch(refreshToken())
-            store.dispatch(loadUser())
         }
     }, [])
 
@@ -62,9 +68,16 @@ const App = () => {
                             component={PermissionPage}
                         />
 
-                        <PermissionRoute exact path='/player' component={Player} permissions={ ['ROLE_ADMIN'] } />
-                        <PermissionRoute exact path='/player/create-player' component={CreatePlayer} permissions={ ['ROLE_ADMIN'] } />
-                        <PermissionRoute exact path='/player/update-player/:playerId' component={UpdatePlayer} permissions={ ['ROLE_ADMIN'] } />
+                        <PermissionRoute exact path='/player' component={Player} permissions={ ['ROLE_ADMIN', 'ROLE_LEADER'] } />
+                        <PermissionRoute exact path='/player/create-player' component={CreatePlayer} permissions={ ['ROLE_ADMIN', 'ROLE_LEADER'] } />
+                        <PermissionRoute exact path='/player/update-player/:playerId' component={UpdatePlayer} permissions={ ['ROLE_ADMIN', 'ROLE_LEADER'] } />
+                        <PermissionRoute exact path='/player/:playerId' component={PlayerProfile} permissions={ ['ROLE_ADMIN', 'ROLE_LEADER'] } />
+
+                        <PermissionRoute exact path='/league' component={League} permissions={ ['ROLE_ADMIN', 'ROLE_LEADER'] } />
+                        <PermissionRoute exact path='/league/update-league/:leagueId' component={UpdateLeague} permissions={ ['ROLE_ADMIN', 'ROLE_LEADER'] } />
+
+                        <PermissionRoute exact path='/team' component={Team} permissions={ ['ROLE_ADMIN', 'ROLE_LEADER'] } />
+                        <PermissionRoute exact path='/league/:leagueId/:teamId' component={UpdateTeam} permissions={ ['ROLE_ADMIN', 'ROLE_LEADER'] } />
 
                     </Switch>
                 </div>

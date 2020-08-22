@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { updatePlayer, getPlayer } from '../../actions/player'
+import { updatePlayer, getPlayer, deletePlayer } from '../../actions/player'
 import FileUpload from '../util/FileUpload'
 import Spinner from '../layout/Spinner'
 
@@ -13,6 +13,7 @@ const UpdatePlayer = ({
     player: { player, loading },
     match,
     getPlayer,
+    deletePlayer
 }) => {
     const [formData, setFormData] = useState({
         firstName: '',
@@ -36,7 +37,7 @@ const UpdatePlayer = ({
                     loading || !player.playerCode ? '' : player.playerCode,
                 nickName: loading || !player.nickName ? '' : player.nickName,
                 dateOfBirth:
-                    loading || !player.dateOfBirth ? '' : player.dateOfBirth,
+                    loading || !player.dateOfBirth ? '' : player.dateOfBirth.substring(0, 10),
                 ranking: loading || !player.ranking ? '' : player.ranking,
                 updatedPoint:
                     loading || !player.updatedPoint ? '' : player.updatedPoint,
@@ -105,6 +106,10 @@ const UpdatePlayer = ({
                 history
             )
         }
+    }
+
+    const onDelete = () => {
+        deletePlayer(match.params.playerId, history)
     }
 
     return loading || !player ? (
@@ -269,9 +274,15 @@ const UpdatePlayer = ({
                             </div>
                         </div>
 
-                        <button type='submit' className='btn btn-primary'>
-                            Submit
-                        </button>
+                        <div className='d-flex justify-content-between'>
+                            <button type='submit' className='btn btn-primary'>
+                                Submit
+                            </button>
+
+                            <Link to='#' onClick={onDelete} className='btn btn-danger'>
+                                Delete Player
+                            </Link>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -283,12 +294,13 @@ UpdatePlayer.propTypes = {
     updatePlayer: PropTypes.func.isRequired,
     player: PropTypes.object.isRequired,
     getPlayer: PropTypes.func.isRequired,
+    deletePlayer: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
     player: state.player,
 })
 
-export default connect(mapStateToProps, { updatePlayer, getPlayer })(
+export default connect(mapStateToProps, { updatePlayer, getPlayer, deletePlayer })(
     UpdatePlayer
 )

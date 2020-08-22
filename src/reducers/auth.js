@@ -27,6 +27,7 @@ export default function (state = initialState, action) {
                 user: {
                     username: payload.username,
                     authorities: payload.grantedAuthorityList,
+                    team: payload.team
                 },
             }
 

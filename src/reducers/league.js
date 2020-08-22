@@ -1,16 +1,16 @@
 import {
-    GET_PLAYER,
-    GET_PLAYERS,
-    GET_PLAYER_ERROR,
-    CLEAR_PLAYER,
-    CLEAR_PLAYERS,
-    GET_PLAYER_ACHIEVEMENT
+    GET_LEAGUE,
+    GET_LEAGUES,
+    GET_LEAGUE_ERROR,
+    CLEAR_LEAGUE,
+    CLEAR_LEAGUES,
+    GET_TEAM_PARTICIPATION
 } from '../actions/types'
 
 const initialState = {
-    player: null,
-    players: [],
-    playerAchievements: [],
+    league: null,
+    leagues: [],
+    teamParticipation: null,
     loading: true,
     error: null,
 }
@@ -19,54 +19,55 @@ export default function (state = initialState, action) {
     const { type, payload } = action
 
     switch (type) {
-        case GET_PLAYER:
+        case GET_LEAGUE:
             return {
                 ...state,
-                player: payload,
+                league: payload,
                 loading: false,
                 error: null,
             }
 
-        case GET_PLAYERS:
+        case GET_LEAGUES:
             return {
                 ...state,
-                players: payload,
+                leagues: payload,
                 loading: false,
                 error: null,
             }
 
-        case GET_PLAYER_ERROR:
+        case GET_LEAGUE_ERROR:
             return {
                 ...state,
                 error: payload,
-                player: null,
-                players: [],
+                league: null,
+                leagues: [],
                 loading: false,
             }
 
-        case GET_PLAYER_ACHIEVEMENT:
+        case CLEAR_LEAGUE: {
             return {
                 ...state,
-                playerAchievements: payload.reverse(),
-                loading: false,
-                error: null
-            }
-
-        case CLEAR_PLAYER: {
-            return {
-                ...state,
-                player: null,
+                league: null,
                 error: null,
                 loading: false,
             }
         }
 
-        case CLEAR_PLAYERS: {
+        case CLEAR_LEAGUES: {
             return {
                 ...state,
-                players: [],
+                leagues: [],
                 error: null,
                 loading: false,
+            }
+        }
+
+        case GET_TEAM_PARTICIPATION: {
+            return {
+                ...state,
+                teamParticipation: payload,
+                error: null,
+                loading: false
             }
         }
 

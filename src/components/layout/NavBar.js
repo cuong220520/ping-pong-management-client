@@ -50,17 +50,17 @@ const NavBar = ({ logout, auth: { loading, isAuthenticated } }) => {
                         aria-haspopup='true'
                         aria-expanded='false'
                     >
-                        Dropdown
+                        Team
                     </Link>
                     <div
                         className='dropdown-menu'
                         aria-labelledby='navbarDropdownTeam'
                     >
-                        <Link className='dropdown-item' to='#'>
-                            Action
+                        <Link className='dropdown-item' to='/team'>
+                            All Teams
                         </Link>
-                        <Link className='dropdown-item' to='#'>
-                            Another action
+                        <Link className='dropdown-item' to='/team/create-team'>
+                            Create Team
                         </Link>
                         <Link className='dropdown-item' to='#'>
                             Something else here
@@ -78,20 +78,17 @@ const NavBar = ({ logout, auth: { loading, isAuthenticated } }) => {
                         aria-haspopup='true'
                         aria-expanded='false'
                     >
-                        Dropdown
+                        League
                     </Link>
                     <div
                         className='dropdown-menu'
                         aria-labelledby='navbarDropdownLeague'
                     >
-                        <Link className='dropdown-item' to='#'>
-                            Action
+                        <Link className='dropdown-item' to='/league'>
+                            All Leagues
                         </Link>
-                        <Link className='dropdown-item' to='#'>
-                            Another action
-                        </Link>
-                        <Link className='dropdown-item' to='#'>
-                            Something else here
+                        <Link className='dropdown-item' to='/league/create-league'>
+                            Create League
                         </Link>
                     </div>
                 </li>

@@ -94,6 +94,8 @@ export const refreshToken = () => async dispatch => {
             type: REFRESH_TOKEN,
             payload: res.data
         })
+
+        dispatch(loadUser())
     } catch (err) {
         const errors = err.response.data
 
