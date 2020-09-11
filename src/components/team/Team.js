@@ -78,7 +78,7 @@ const Team = ({
                                 data-toggle='modal'
                                 data-target='#createTeam'
                             >
-                                Create League
+                                Create Team
                             </button>
 
                             <div>

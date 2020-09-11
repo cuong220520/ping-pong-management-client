@@ -84,6 +84,8 @@ export const createTeam = (formData) => async dispatch => {
         await axios.post('/api/team/', formData, config)
 
         dispatch(setAlert('Save team successfully!', 'success'))
+
+        dispatch(getTeams())
     } catch (err) {
         const errors = err.response.data
 
